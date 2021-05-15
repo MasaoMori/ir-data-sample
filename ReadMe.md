@@ -1,3 +1,12 @@
+# 教務サンプルデータ　β版 version 0.1
+
+1学部4学科の仮想大学の教務サンプルデータを作りました。学整数は1460人、教員数は
+
+## 作り方
+
+1. 
+
+
 ## 0. Pandasのデータフレーム
 
 ExcelやCSVなど、IRでテーブルデータを扱うことは多く、**Pandas**モジュール（ライブラリ）はテーブルデータを処理する道具として広く用いられています。CSVやExcelとの親和性も高いです。モジュールは
@@ -30,8 +39,8 @@ largeおよびsmallのフォルダには、
 |科目マスタ|M_lecture.csv|
 |国名マスタ|M_country.csv|
 |教員情報|M_faculty.csv|
-|授業主担当|D_assignment.csv|
-|授業分担率|D_chief.csv|
+|授業分担率|D_assignment.csv|
+|授業主担当|D_chief.csv|
 |学籍情報|M_student.csv, M_student_small.csv|
 |成績情報|D_grade.csv, D_grade_small.csv|
 
