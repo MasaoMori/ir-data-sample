@@ -32,17 +32,17 @@ import pandas as pd # ここで実行してください、以下でpdを使用�
 
 largeおよびsmallのフォルダには、
 
-|テーブル|CSVファイル|
-|--|--|
-|学科マスタ|M_department.csv|
-|コースマスタ|M_course.csv|
-|科目マスタ|M_lecture.csv|
-|国名マスタ|M_country.csv|
-|教員情報|M_faculty.csv|
-|授業分担率|D_assignment.csv|
-|授業主担当|D_chief.csv|
-|学籍情報|M_student.csv, M_student_small.csv|
-|成績情報|D_grade.csv, D_grade_small.csv|
+|テーブル|CSVファイル|変数名|
+|--|--|--|
+|学科マスタ|M_department.csv|dpt|
+|コースマスタ|M_course.csv|crs|
+|科目マスタ|M_lecture.csv|sbj|
+|国名マスタ|M_country.csv|nat|
+|教員情報|M_faculty.csv|fac|
+|授業主担当|D_chief.csv|chg|
+|授業分担率|D_assignment.csv|asn|
+|学籍情報|M_student.csv, M_student_small.csv|std|
+|成績情報|D_grade.csv, D_grade_small.csv|grd|
 
 largeとsmallの違いは、学籍情報についてlargeはsmallの十倍、成績情報はそれに伴って調整してるところです。
 
@@ -50,15 +50,20 @@ largeとsmallの違いは、学籍情報についてlargeはsmallの十倍、成
 
 
 ```python
-dpt = pd.read_csv("./large/M_department.xlsx", sheet_name='学科マスタ', engine="openpyxl", dtype={'学科コード':str})                                           
-crs = pd.read_csv("./large/M_course.xlsx", sheet_name='コースマスタ', engine="openpyxl", dtype={'コースコード':str})                                           
-sbj = pd.read_csv("./large/M_lecture.xlsx", sheet_name='科目マスタ', engine="openpyxl", dtype={'学科コード':str, '科目コード':str,'コースコード':str})         
-nat = pd.read_csv("./large/M_country.xlsx", sheet_name='国名マスタ', engine="openpyxl", dtype={'国名コード':str})                                              
-fac = pd.read_csv("./large/M_faculty.xlsx", sheet_name='教員情報', engine="openpyxl", dtype={'PID':str})                                                       
-chg = pd.read_csv("./large/D_chief.xlsx", sheet_name='授業主担当', engine="openpyxl", dtype={'科目コード':str, 'PID':str})                                     
-asn = pd.read_csv("./large/D_assignment.xlsx", sheet_name='授業分担率', engine="openpyxl", dtype={'科目コード':str, 'PID':str})                                
-std = pd.read_csv("./large/M_student.xlsx", sheet_name='学籍情報', engine="openpyxl", dtype={'SID':str, '学科':str})                                           
-grd = pd.read_csv("./large/D_grade.xlsx", sheet_name='成績情報', engine="openpyxl", dtype={'科目コード':str, 'SID':str, '主担当':str})                                                                                                     
+dpt = pd.read_csv("./large/M_department.csv", dtype={'学科コード':str})                                                   
+```
+
+
+```python
+dpt = pd.read_csv("./large/M_department.csv", dtype={'学科コード':str})                                           
+crs = pd.read_csv("./large/M_course.csv", dtype={'コースコード':str})                                           
+sbj = pd.read_csv("./large/M_lecture.csv", dtype={'学科コード':str, '科目コード':str,'コースコード':str})         
+nat = pd.read_csv("./large/M_country.csv",dtype={'国名コード':str})                                              
+fac = pd.read_csv("./large/M_faculty.csv", dtype={'PID':str})                                                       
+chg = pd.read_csv("./large/D_chief.csv", dtype={'科目コード':str, 'PID':str})                                     
+asn = pd.read_csv("./large/D_assignment.csv", dtype={'科目コード':str, 'PID':str})                                
+std = pd.read_csv("./large/M_student.csv",  dtype={'SID':str, '学科':str})                                           
+grd = pd.read_csv("./large/D_grade.csv", dtype={'科目コード':str, 'SID':str, '主担当':str})                                                                                                     
 ```
 
 そして、dptからgrdまでの各変数を見てみましょう。
@@ -67,8 +72,21 @@ grd = pd.read_csv("./large/D_grade.xlsx", sheet_name='成績情報', engine="ope
 
 
 ```python
-grd
+grd.info()
 ```
+
+    <class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 96482 entries, 0 to 96481
+    Data columns (total 4 columns):
+     #   Column  Non-Null Count  Dtype 
+    ---  ------  --------------  ----- 
+     0   SID     96482 non-null  object
+     1   科目コード   96482 non-null  object
+     2   評点      96482 non-null  int64 
+     3   主担当     96482 non-null  object
+    dtypes: int64(1), object(3)
+    memory usage: 2.9+ MB
+
 
 教務サンプル.xlsxの各シートが、データフレームというデータ構造で、各変数に格納されています。それぞれのカラムを見たいときは、データフレームgrd（成績情報）を例に取ると
 
